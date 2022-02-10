@@ -39,19 +39,16 @@
 //     console.log('listening on port 3000');
 // });
 
+import miniApp from './index';
+
 const PORT = 80;
 
-const miniApp = require('./index');
-
 const app = miniApp();
-
-app.use(miniApp.bodyParser);
 
 app.use((req, res, next, value) => {
     console.info('body', req.body);
     res.json({ message: "Hello World!" });
 });
-
 
 app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT}`);

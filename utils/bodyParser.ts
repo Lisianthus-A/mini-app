@@ -1,4 +1,6 @@
-const jsonParse = (str) => {
+import type { Middleware } from '../index';
+
+const jsonParse = (str: any) => {
     try {
         return JSON.parse(str);
     } catch (e) {
@@ -7,14 +9,14 @@ const jsonParse = (str) => {
     }
 };
 
-module.exports = (req, res, next) => {
+const bodyParser: Middleware = (req, res, next) => {
     const contentType = req.headers['content-type'];
     if (contentType !== 'application/json') {
         req.body = {};
         return next();
     }
 
-    const data = [];
+    const data: any[] = [];
     req.on('data', (chunk) => {
         data.push(chunk);
     });
@@ -28,4 +30,6 @@ module.exports = (req, res, next) => {
         console.error(e);
         next();
     });
-}
+};
+
+export default bodyParser;
