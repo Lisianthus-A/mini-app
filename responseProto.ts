@@ -1,8 +1,8 @@
 import * as http from 'http';
 
 interface Proto extends http.ServerResponse {
-    status: (code: number) => Proto;
-    header: (headers: Record<string, string>) => Proto;
+    status: (code?: number) => Proto;
+    header: (headers: Record<string, any>) => Proto;
     send: (data: any) => void;
     json: (obj: Record<string, any>) => void;
 }
@@ -10,7 +10,9 @@ interface Proto extends http.ServerResponse {
 const proto: Proto = Object.create(http.ServerResponse.prototype);
 
 proto.status = function (code) {
-    this.statusCode = code;
+    if (code) {
+        this.statusCode = code;
+    }
     return this;
 }
 
