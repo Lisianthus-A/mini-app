@@ -2,9 +2,9 @@ import type { Middleware } from '../index';
 
 const jsonParse = (str: any) => {
     try {
-        return JSON.parse(str);
+        const json = JSON.parse(str);
+        return json;
     } catch (e) {
-        console.error(e);
         return {};
     }
 };
