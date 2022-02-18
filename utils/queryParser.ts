@@ -1,4 +1,4 @@
-import type { Middleware } from '../index';
+import type { Middleware } from '../application';
 
 const queryParser: Middleware = (req, res, next) => {
   const queryArray: string[] = (req.url || '').match(/[?&]([^?&]+)=([^?&]+)/g) || [];

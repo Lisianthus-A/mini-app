@@ -1,4 +1,4 @@
-import type { Middleware } from '../index';
+import type { Middleware } from '../application';
 
 const jsonParse = (str: any) => {
     try {

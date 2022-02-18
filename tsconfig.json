@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {
+    "compilerOptions": {
         "module": "commonjs",
         "outDir": "dist",
         "target": "ES2018",
@@ -10,7 +10,7 @@
         "preserveConstEnums": true,
         "strict": true
     },
-  "exclude": [
+    "exclude": [
         "node_modules",
         "./dist/**/*"
     ],

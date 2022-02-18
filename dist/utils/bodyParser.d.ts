@@ -1,3 +1,3 @@
-import type { Middleware } from '../index';
+import type { Middleware } from '../application';
 declare const bodyParser: Middleware;
 export default bodyParser;
