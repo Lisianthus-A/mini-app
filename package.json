@@ -1,14 +1,11 @@
 {
     "name": "@lisianthus-a/mini-app",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "MiniApp",
     "main": "dist/index.js",
-    "typings": "dist/index.d.ts",
+    "types": "dist/index.d.ts",
     "files": [
-        "dist/index.js",
-        "dist/index.d.ts",
-        "dist/responseProto.js",
-        "dist/utils/"
+        "dist/"
     ],
     "repository": {
         "type": "git",
