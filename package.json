@@ -17,6 +17,9 @@
     "scripts": {
         "build": "rm -rf dist && tsc"
     },
+    "publishConfig": {
+        "access": "public"
+    },
     "author": "Lisianthus-A",
     "license": "MIT",
     "devDependencies": {
