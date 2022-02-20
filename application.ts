@@ -37,6 +37,8 @@ class MiniApp {
     constructor() {
         this.server = null;
         this.middlewares = [bodyParser, queryParser];
+
+        // { $method_$path: Route }
         this.staticRoutes = {};
         this.dynamicRoutes = {};
     }
@@ -95,34 +97,33 @@ class MiniApp {
                 // match dynamic route
                 for (const key in this.dynamicRoutes) {
                     const routeMethod = key.split('_')[0];
-                    if (method !== routeMethod) {
-                        continue;
-                    }
                     const { handler, parts: routeParts } = this.dynamicRoutes[key];
                     const parts = path.split('/').filter(item => item);
-                    if (parts.length !== routeParts.length) {
+
+                    if (method !== routeMethod || parts.length !== routeParts.length) {
                         continue;
                     }
 
                     const params: Record<string, string> = {};
-                    let continueFlag = false;
+                    let paramNotMatch = false;
                     for (let i = 0; i < parts.length; ++i) {
                         const isParam = routeParts[i][0] === '[' && routeParts[i].slice(-1)[0] === ']';
                         if (isParam) {
                             const field = routeParts[i].slice(1, -1);
                             params[field] = parts[i];
                         } else if (parts[i] !== routeParts[i]) {
-                            continueFlag = true;
+                            paramNotMatch = true;
                             break;
                         }
                     }
 
-                    if (continueFlag) {
+                    if (paramNotMatch) {
                         continue;
                     }
 
                     (req as wrapReq).params = params;
                     routeHandler = handler;
+                    break;
                 }
             }
 
