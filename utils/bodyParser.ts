@@ -11,7 +11,7 @@ const jsonParse = (str: any) => {
 
 const bodyParser: Middleware = (req, res, next) => {
     const contentType = req.headers['content-type'];
-    if (contentType !== 'application/json') {
+    if (contentType && contentType.indexOf('application/json') === -1) {
         req.body = {};
         return next();
     }
