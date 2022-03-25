@@ -15,6 +15,9 @@ proto.header = function (headers) {
     return this;
 };
 proto.send = function (data) {
+    if (data && typeof data === 'object') {
+        return this.json(data);
+    }
     this.end(data);
 };
 proto.json = function (obj) {

@@ -24,6 +24,9 @@ proto.header = function (headers) {
 }
 
 proto.send = function (data) {
+    if (data && typeof data === 'object') {
+        return this.json(data);
+    }
     this.end(data);
 }
 

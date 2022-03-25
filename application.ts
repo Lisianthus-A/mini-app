@@ -6,6 +6,7 @@ export interface wrapReq extends http.IncomingMessage {
     query: Record<string, string>;
     params: Record<string, string>;
     body: Record<string, any>;
+    bodyBuffer: Buffer;
 }
 
 export type wrapRes = typeof responseProto;

@@ -10,12 +10,6 @@ const jsonParse = (str: any) => {
 };
 
 const bodyParser: Middleware = (req, res, next) => {
-    const contentType = req.headers['content-type'];
-    if (contentType && contentType.indexOf('application/json') === -1) {
-        req.body = {};
-        return next();
-    }
-
     const data: any[] = [];
     req.on('data', (chunk) => {
         data.push(chunk);
@@ -24,6 +18,7 @@ const bodyParser: Middleware = (req, res, next) => {
         const buffer = Buffer.concat(data);
         const body = jsonParse(buffer);
         req.body = body;
+        req.bodyBuffer = buffer;
         next();
     });
     req.on('error', (e) => {

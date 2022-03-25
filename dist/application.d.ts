@@ -5,6 +5,7 @@ export interface wrapReq extends http.IncomingMessage {
     query: Record<string, string>;
     params: Record<string, string>;
     body: Record<string, any>;
+    bodyBuffer: Buffer;
 }
 export declare type wrapRes = typeof responseProto;
 export declare type Middleware = (req: wrapReq, res: wrapRes, next: (value?: any) => void, value: any) => void;
