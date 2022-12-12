@@ -48,9 +48,9 @@ class MiniApp {
         this.middlewares.push(fn);
     }
 
-    get(path: string, fn: RouteHandler) {
+    private methodWraper(type: string, path: string, fn: RouteHandler) {
         const isDynamic = /\[[^\/]+\]/.test(path);
-        const routeKey = `GET_${path}`;
+        const routeKey = `${type}_${path}`;
         const route = {
             path,
             parts: isDynamic ? path.split('/').filter(item => item) : [],
@@ -63,19 +63,24 @@ class MiniApp {
         }
     }
 
+    get(path: string, fn: RouteHandler) {
+        this.methodWraper('GET', path, fn);
+    }
+
     post(path: string, fn: RouteHandler) {
-        const isDynamic = /\[[^\/]+\]/.test(path);
-        const routeKey = `POST_${path}`;
-        const route = {
-            path,
-            parts: isDynamic ? path.split('/').filter(item => item) : [],
-            handler: fn
-        };
-        if (isDynamic) {
-            this.dynamicRoutes[routeKey] = route;
-        } else {
-            this.staticRoutes[routeKey] = route;
-        }
+        this.methodWraper('POST', path, fn);
+    }
+
+    options(path: string, fn: RouteHandler) {
+        this.methodWraper('OPTIONS', path, fn);
+    }
+
+    put(path: string, fn: RouteHandler) {
+        this.methodWraper('PUT', path, fn);
+    }
+
+    delete(path: string, fn: RouteHandler) {
+        this.methodWraper('DELETE', path, fn);
     }
 
     listen(port: number, callback?: () => void) {
