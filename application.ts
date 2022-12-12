@@ -44,10 +44,6 @@ class MiniApp {
         this.dynamicRoutes = {};
     }
 
-    use(fn: Middleware) {
-        this.middlewares.push(fn);
-    }
-
     private methodWraper(type: string, path: string, fn: RouteHandler) {
         const isDynamic = /\[[^\/]+\]/.test(path);
         const routeKey = `${type}_${path}`;
@@ -61,6 +57,10 @@ class MiniApp {
         } else {
             this.staticRoutes[routeKey] = route;
         }
+    }
+
+    use(fn: Middleware) {
+        this.middlewares.push(fn);
     }
 
     get(path: string, fn: RouteHandler) {

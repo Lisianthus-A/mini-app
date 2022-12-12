@@ -10,38 +10,38 @@ class MiniApp {
         this.staticRoutes = {};
         this.dynamicRoutes = {};
     }
+    methodWraper(type, path, fn) {
+        const isDynamic = /\[[^\/]+\]/.test(path);
+        const routeKey = `${type}_${path}`;
+        const route = {
+            path,
+            parts: isDynamic ? path.split('/').filter(item => item) : [],
+            handler: fn
+        };
+        if (isDynamic) {
+            this.dynamicRoutes[routeKey] = route;
+        }
+        else {
+            this.staticRoutes[routeKey] = route;
+        }
+    }
     use(fn) {
         this.middlewares.push(fn);
     }
     get(path, fn) {
-        const isDynamic = /\[[^\/]+\]/.test(path);
-        const routeKey = `GET_${path}`;
-        const route = {
-            path,
-            parts: isDynamic ? path.split('/').filter(item => item) : [],
-            handler: fn
-        };
-        if (isDynamic) {
-            this.dynamicRoutes[routeKey] = route;
-        }
-        else {
-            this.staticRoutes[routeKey] = route;
-        }
+        this.methodWraper('GET', path, fn);
     }
     post(path, fn) {
-        const isDynamic = /\[[^\/]+\]/.test(path);
-        const routeKey = `POST_${path}`;
-        const route = {
-            path,
-            parts: isDynamic ? path.split('/').filter(item => item) : [],
-            handler: fn
-        };
-        if (isDynamic) {
-            this.dynamicRoutes[routeKey] = route;
-        }
-        else {
-            this.staticRoutes[routeKey] = route;
-        }
+        this.methodWraper('POST', path, fn);
+    }
+    options(path, fn) {
+        this.methodWraper('OPTIONS', path, fn);
+    }
+    put(path, fn) {
+        this.methodWraper('PUT', path, fn);
+    }
+    delete(path, fn) {
+        this.methodWraper('DELETE', path, fn);
     }
     listen(port, callback) {
         this.server = http.createServer(async (req, res) => {

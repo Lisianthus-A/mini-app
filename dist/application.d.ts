@@ -21,9 +21,13 @@ declare class MiniApp {
     private staticRoutes;
     private dynamicRoutes;
     constructor();
+    private methodWraper;
     use(fn: Middleware): void;
     get(path: string, fn: RouteHandler): void;
     post(path: string, fn: RouteHandler): void;
+    options(path: string, fn: RouteHandler): void;
+    put(path: string, fn: RouteHandler): void;
+    delete(path: string, fn: RouteHandler): void;
     listen(port: number, callback?: () => void): void;
     close(callback?: () => void): void;
 }

@@ -15,7 +15,7 @@ proto.header = function (headers) {
     return this;
 };
 proto.send = function (data) {
-    if (data && typeof data === 'object') {
+    if (Object.prototype.toString.call(data) === '[object Object]') {
         return this.json(data);
     }
     this.end(data);
